@@ -4,20 +4,27 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Base.BaseScreen;
+import com.mygdx.game.math.Rect;
+import com.mygdx.game.sprite.Background;
+import com.mygdx.game.sprite.BadLogic;
 
 public class ScreenMenu extends BaseScreen {
 
-    private SpriteBatch batch;
-    private Texture img;
-    private Texture backtexture;
 
-    private Vector2 touch;
-    private Vector2 touchNew;
-    private Vector2 v;
-    private Vector2 pos;
-    float speed;
+    private Texture backtexture;
+    private Texture badLogicTexture;
+    private Background background;
+    private BadLogic badLogic;
+
+
+//    private Vector2 touch;
+//    private Vector2 touchNew;
+//    private Vector2 v;
+//    private Vector2 pos;
+//    float speed;
 
     private float topBorder;
     private float rightBorder;
@@ -28,34 +35,45 @@ public class ScreenMenu extends BaseScreen {
     @Override
     public void show() {
         super.show();
-        batch = new SpriteBatch();
-        img = new Texture("badlogic.jpg");
-        backtexture  = new Texture("kosmos.jpg");
-        touch = new Vector2();
-        touchNew = new Vector2();
-        v = new Vector2();
-        pos = new Vector2();
-        speed = 0.7f;
+        backtexture = new Texture("kosmos.jpg");
+        background = new Background(new TextureRegion(backtexture));
+        badLogicTexture = new Texture("badlogic.jpg");
+        badLogic = new BadLogic(new TextureRegion(badLogicTexture));
+
+
+//        touch = new Vector2();
+//        touchNew = new Vector2();
+//        v = new Vector2();
+//        pos = new Vector2();
+//        speed = 0.7f;
     }
 
     @Override
     public void render(float delta) {
+     //   System.out.println("render ScreenMenu " );
         super.render(delta);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(backtexture , 0, 0);
-        batch.draw(img, pos.x, pos.y);
+        background.draw(batch);
+        badLogic.draw(batch);
         batch.end();
         if (touch.x != 0 || touch.y != 0) {
-            if (Math.round(pos.x) != Math.round(touchNew.x) && Math.round(pos.y) != Math.round(touchNew.y)){
-                pos.add(v);
+         //   badLogic.pos.add(v);
+        //    if (Math.round(badLogic.pos.x) != Math.round(touchNew.x) && Math.round(badLogic.pos.y) != Math.round(touchNew.y))
+            {
+                badLogic.pos.add(v);
+
             }
         }
+
+        System.out.println("render touchX = " + touch.x + " touchY = " + touch.y + " v.x  = " + v.x + " v.y = " + v.y + " badLogic.pos.x = " + badLogic.pos.x + " badLogic.pos.y = " + badLogic.pos.y);
     }
 
     @Override
-    public void resize(int width, int height) {
-        super.resize(width, height);
+    public void resize(Rect worldBounds) {
+        super.resize(worldBounds);
+        background.resize(worldBounds);
+        badLogic.resize(worldBounds);
     }
 
     @Override
@@ -75,10 +93,9 @@ public class ScreenMenu extends BaseScreen {
 
     @Override
     public void dispose() {
-        super.dispose();
-        batch.dispose();
-        img.dispose();
+        badLogicTexture.dispose();
         backtexture.dispose();
+        super.dispose();
     }
 
     @Override
@@ -100,11 +117,11 @@ public class ScreenMenu extends BaseScreen {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         super.touchDown(screenX, screenY, pointer, button);
-        touch.set(screenX, Gdx.graphics.getHeight() - screenY);
-        touchNew.set(touch);
-        touch.sub(pos);
-        touch.nor();
-        v.set(touch).scl(speed);
+//        touch.set(screenX, Gdx.graphics.getHeight() - screenY);
+//        touchNew.set(touch);
+//        touch.sub(pos);
+//        touch.nor();
+//        v.set(touch).scl(speed);
         return false;
     }
 
