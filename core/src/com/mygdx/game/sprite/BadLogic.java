@@ -21,6 +21,7 @@ public class BadLogic extends Sprite {
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer) {
+        System.out.println("touchDown BadLogic touch.x = " + touch.x + " touch.y = " + touch.y);
         return super.touchDown(touch, pointer);
     }
 }

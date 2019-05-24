@@ -7,6 +7,7 @@ import com.mygdx.game.math.Rect;
 
 public class Sprite extends Rect {
 
+
     protected float angle;
     protected float scale = 1f;
     protected TextureRegion[] regions;
@@ -43,6 +44,7 @@ public class Sprite extends Rect {
     }
 
     public boolean touchDown(Vector2 touch, int pointer) {
+        System.out.println("touchDown Sprite touch.x = " + touch.x + " touch.y = " + touch.y);
         return false;
     }
 

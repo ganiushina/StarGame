@@ -8,13 +8,14 @@ import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 
-//import org.w3c.dom.css.Rect;
-
 import com.mygdx.game.math.MatrixUtils;
 import com.mygdx.game.math.Rect;
 
+
 public class BaseScreen implements Screen, InputProcessor {
 
+
+    protected float len;
 
     protected SpriteBatch batch;
 
@@ -24,7 +25,7 @@ public class BaseScreen implements Screen, InputProcessor {
     private Rect worldBounds;
     private Rect glBounds;
 
-    private Matrix4 worldToGl;
+    protected Matrix4 worldToGl;
     private Matrix3 screenToWorld;
 
 
@@ -45,24 +46,13 @@ public class BaseScreen implements Screen, InputProcessor {
         this.worldToGl = new Matrix4();
         this.screenToWorld = new Matrix3();
 
-
         this.touchNew = new Vector2();
         this.v = new Vector2();
-
         this.speed = 0.007f;
     }
 
     @Override
     public void render(float delta) {
-      //  System.out.println("render BaseScreen " );
-//        if (touch.x != 0 || touch.y != 0) {
-//            if (Math.round(pos.x) != Math.round(touchNew.x) && Math.round(pos.y) != Math.round(touchNew.y)){
-//                pos.add(v);
-//            }
-//        }
-
-//        System.out.println("render BaseScreen " );
-//        System.out.println("render touchX = " + touch.x + " touchY = " + touch.y + " v.x  = " + v.x + " v.y = " + v.y);
 
     }
 
@@ -127,15 +117,16 @@ public class BaseScreen implements Screen, InputProcessor {
         System.out.println("touchDown screenX = " + screenX + " screenY = " + screenY);
         touch.set(screenX, screenBounds.getHeight() - screenY).mul(screenToWorld);
         touchDown(touch, pointer);
-        touchNew.set(touch);
-        touch.sub(glBounds.pos);
-        touch.nor();
-        v.set(touch).scl(speed);
         return false;
     }
 
     public boolean touchDown(Vector2 touch, int pointer) {
-        System.out.println("touchDown touchX = " + touch.x + " touchY = " + touch.y);
+        len = 0.0f;
+        touchNew.set(touch);
+        len = touchNew.len();
+        touch.sub(glBounds.pos);
+        touch.nor();
+        v.set(touch).scl(speed);
         return false;
     }
 
