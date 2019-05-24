@@ -37,8 +37,6 @@ public class ScreenMenu extends BaseScreen {
         background.draw(batch);
         badLogic.draw(batch);
         batch.end();
-
-        batch.setProjectionMatrix(worldToGl);
         if (touch.x != 0 || touch.y != 0) {
             if ((badLogic.pos.x) != ((touchNew.x)) &&((badLogic.pos.y)) != ((touchNew.y)))
         //    if (abs(badLogic.pos.len()) <= abs(len))
