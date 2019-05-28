@@ -1,57 +1,87 @@
 package com.mygdx.game.Screen;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Base.BaseScreen;
 import com.mygdx.game.math.Rect;
 import com.mygdx.game.sprite.Background;
-import com.mygdx.game.sprite.BadLogic;
-
+import com.mygdx.game.sprite.ButtonExit;
+import com.mygdx.game.sprite.ButtonPlay;
+import com.mygdx.game.sprite.Star;
 
 
 public class ScreenMenu extends BaseScreen {
+    private static final int STAR_COUNT = 256;
 
+    private Game game;
 
-    private Texture backtexture;
-    private Texture badLogicTexture;
+    private Texture bg;
     private Background background;
-    private BadLogic badLogic;
+    private TextureAtlas atlas;
+    private Star[] starArray;
+
+    private ButtonExit buttonExit;
+    private ButtonPlay buttonPlay;
+
+    public ScreenMenu(Game game) {
+        this.game = game;
+    }
 
 
     @Override
     public void show() {
         super.show();
-        backtexture = new Texture("kosmos.jpg");
-        background = new Background(new TextureRegion(backtexture));
-        badLogicTexture = new Texture("badlogic.jpg");
-        badLogic = new BadLogic(new TextureRegion(badLogicTexture));
+        bg = new Texture("textures/kosmos.png");
+        background = new Background(new TextureRegion(bg));
+        atlas = new TextureAtlas("textures/menuAtlas.tpack");
+        starArray = new Star[STAR_COUNT];
+        for (int i = 0; i < STAR_COUNT; i++) {
+            starArray[i] = new Star(atlas);
+        }
+        buttonExit = new ButtonExit(atlas);
+        buttonPlay = new ButtonPlay(atlas, game);
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
+        update(delta);
+        draw();
+    }
+
+    private void update(float delta) {
+        for (Star star : starArray) {
+            star.update(delta);
+        }
+    }
+
+    private void draw() {
+        Gdx.gl.glClearColor(0.4f, 0.3f, 0.9f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         background.draw(batch);
-        badLogic.draw(batch);
-        batch.end();
-        if (touch.x != 0 || touch.y != 0) {
-            if ((badLogic.pos.x) != ((touchNew.x)) &&((badLogic.pos.y)) != ((touchNew.y)))
-        //    if (abs(badLogic.pos.len()) <= abs(len))
-            {
-                badLogic.pos.add(v);
-            }
+        for (Star star : starArray) {
+            star.draw(batch);
         }
-
+        buttonExit.draw(batch);
+        buttonPlay.draw(batch);
+        batch.end();
     }
 
     @Override
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
         background.resize(worldBounds);
-        badLogic.resize(worldBounds);
+        for (Star star : starArray) {
+            star.resize(worldBounds);
+        }
+        buttonExit.resize(worldBounds);
+        buttonPlay.resize(worldBounds);
     }
 
     @Override
@@ -71,8 +101,8 @@ public class ScreenMenu extends BaseScreen {
 
     @Override
     public void dispose() {
-        badLogicTexture.dispose();
-        backtexture.dispose();
+        bg.dispose();
+        atlas.dispose();
         super.dispose();
     }
 
@@ -94,13 +124,16 @@ public class ScreenMenu extends BaseScreen {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        super.touchDown(screenX, screenY, pointer, button);
+        buttonExit.touchDown(touch, pointer);
+        buttonPlay.touchDown(touch, pointer);
         return false;
     }
 
     @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return super.touchUp(screenX, screenY, pointer, button);
+    public boolean touchUp(Vector2 touch, int pointer) {
+        buttonExit.touchUp(touch, pointer);
+        buttonPlay.touchUp(touch, pointer);
+        return false;
     }
 
     @Override

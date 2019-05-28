@@ -11,6 +11,6 @@ import com.mygdx.game.Screen.ScreenMenu;
 public class MyGdxGame extends Game {
 	@Override
 	public void create () {
-		setScreen(new ScreenMenu());
+		setScreen(new ScreenMenu(this));
 	}
 }
