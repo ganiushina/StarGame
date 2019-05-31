@@ -1,11 +1,10 @@
 package com.mygdx.game.sprite;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Base.Sprite;
 import com.mygdx.game.math.Rect;
-import com.mygdx.game.math.Rnd;
+
 
 public class ShipBlack extends Sprite {
 
