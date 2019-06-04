@@ -22,7 +22,7 @@ public class BaseScreen implements Screen, InputProcessor {
     protected Vector2 touch;
 
     private Rect screenBounds;
-    private Rect worldBounds;
+    protected Rect worldBounds;
     private Rect glBounds;
 
     protected Matrix4 worldToGl;
