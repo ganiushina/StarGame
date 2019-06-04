@@ -2,8 +2,6 @@ package com.mygdx.game.sprite;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import com.mygdx.game.Base.Sprite;
@@ -14,8 +12,6 @@ public abstract class Ship extends Sprite {
 
     protected BulletPool bulletPool;
     protected TextureRegion bulletRegion;
-
- //   public Rectangle shipRectangle = new Rectangle();//прямоугольник для проверки столкновений
 
     protected Vector2 v;
     protected Vector2 v0;
@@ -44,11 +40,9 @@ public abstract class Ship extends Sprite {
         super.update(delta);
         pos.mulAdd(v, delta);
         reloadTimer += delta;
-        if (reloadTimer >= reloadInterval && (pos.y + getHalfHeight() <= worldBounds.getTop()) && pos.y -getHalfHeight() >= worldBounds.getBottom()  ) {
+        if (reloadTimer >= reloadInterval && (getTop() <= worldBounds.getTop()) && getBottom() >= worldBounds.getBottom()  ) {
             reloadTimer = 0f;
             shoot();
-//            if (pos.y != -0.375)
-//            System.out.println("pos.y + getHalfHeight() = " + (pos.y + getHalfHeight()) + " worldBounds.getTop() = " + worldBounds.getTop());
         }
     }
 
@@ -56,7 +50,7 @@ public abstract class Ship extends Sprite {
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
         this.worldBounds = worldBounds;
-   //     shipRectangle.setPosition(pos.x, pos.y);
+
     }
 
     private void shoot() {

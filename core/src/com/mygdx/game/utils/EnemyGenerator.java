@@ -73,7 +73,6 @@ public class EnemyGenerator {
             generateTimer = 0f;
             Enemy enemy = enemyPool.obtain();
             float type = (float) Math.random();
-          //  if ( )
             if (type < 0.5f) {
                 enemy.set(
                         enemySmallRegion,
@@ -112,16 +111,7 @@ public class EnemyGenerator {
                 );
             }
             enemy.pos.x = Rnd.nextFloat(worldBounds.getLeft() + enemy.getHalfWidth(), worldBounds.getRight() - enemy.getHalfWidth());
-            if (enemy.isOutside(worldBounds)){
-                System.out.println("1w");
-                //enemyMediumV = new Vector2(0f, -0.03f);
-            } else {
-                System.out.println("2w");
-                //enemyBigV = new Vector2(0f, -0.005f);
-            }
             enemy.setBottom(worldBounds.getTop() - enemy.getHeight());
-            System.out.println("enemy.pos.x" + enemy.pos.x + " enemy.pos.y = " + enemy.pos.y + " worldBounds.getTop()" + worldBounds.getTop() + " worldBounds.getBottom() " + worldBounds.getBottom());
-
         }
     }
 

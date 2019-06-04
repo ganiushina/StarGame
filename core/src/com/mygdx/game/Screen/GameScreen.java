@@ -16,7 +16,6 @@ import com.mygdx.game.pool.BulletPool;
 import com.mygdx.game.pool.EnemyPool;
 import com.mygdx.game.pool.ExplosionPool;
 import com.mygdx.game.sprite.Background;
-import com.mygdx.game.sprite.Enemy;
 import com.mygdx.game.sprite.Explosion;
 import com.mygdx.game.sprite.Star;
 
@@ -104,10 +103,8 @@ public class GameScreen extends BaseScreen {
                 explosion.set(0.15f, tmpV);
                 enemyPool.getActiveObjects().get(i).destroy();
             }
-            System.out.println("tmpX = " + tmpX + " tmpY = " + tmpY + " mainShip.pos.y = " + mainShip.pos.y + " mainShip.pos.x = " + mainShip.pos.x);
+            //System.out.println("tmpX = " + tmpX + " tmpY = " + tmpY + " mainShip.pos.y = " + mainShip.pos.y + " mainShip.pos.x = " + mainShip.pos.x);
         }
-
-
     }
 
     private void freeAllDestroyedActiveObjects() {
@@ -115,7 +112,6 @@ public class GameScreen extends BaseScreen {
         explosionPool.freeAllDestroyedActiveSprites();
         enemyPool.freeAllDestroyedActiveSprites();
     }
-
 
     private void draw() {
         Gdx.gl.glClearColor(0.4f, 0.3f, 0.9f, 1f);

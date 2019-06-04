@@ -26,9 +26,9 @@ public class Enemy extends Ship {
     public void update(float delta) {
         super.update(delta);
         enemyShipRectangle.setPosition(getLeft(), getBottom());
-        System.out.println("enemy.pos.x" + pos.x + " enemy.pos.y = " + pos.y + " worldBounds.getTop()" + worldBounds.getTop() + " worldBounds.getBottom() " + worldBounds.getBottom());
+        System.out.println("enemy.pos.x" + pos.x + " enemy.pos.y = " + pos.y + " worldBounds.getTop()" + worldBounds.getTop() + " worldBounds.getBottom() " + worldBounds.getBottom() +
+                " isOutside(worldBounds) = " + isOutside(worldBounds));
 
-      //  System.out.println("Enemy pos.x = " + pos.x + " pos.y = " +pos.y);
     }
 
     public void set(
@@ -54,6 +54,5 @@ public class Enemy extends Ship {
         this.hp = hp;
         this.v.set(v0);
         this.enemyShipRectangle.setSize(getWidth(),getHeight());
-        System.out.println("Enemy getWidth() = " + getWidth() + " getHeight() = " +getHeight());
     }
 }
