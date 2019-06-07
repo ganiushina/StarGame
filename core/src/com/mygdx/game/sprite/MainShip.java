@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Base.Sprite;
 import com.mygdx.game.math.Rect;
 import com.mygdx.game.pool.BulletPool;
+import com.mygdx.game.pool.ExplosionPool;
 
 
 public class MainShip extends Ship {
@@ -23,12 +24,11 @@ public class MainShip extends Ship {
     private int leftPointer = INVALID_POINTER;
     private int rightPointer = INVALID_POINTER;
 
-    public Rectangle mainShipRectangle = new Rectangle();;
 
-
-    public MainShip(TextureAtlas atlas, BulletPool bulletPool, Sound bulletSound) {
+    public MainShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool, Sound bulletSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletPool = bulletPool;
+        this.explosionPool = explosionPool;
         this.bulletRegion = atlas.findRegion("bulletMainShip");
         v = new Vector2();
         v0 = new Vector2(0.5f, 0);
@@ -37,9 +37,7 @@ public class MainShip extends Ship {
         this.bulletHeight = 0.01f;
         this.damage = 1;
         this.bulletSound = bulletSound;
-        this.hp = 100;
-        mainShipRectangle.setSize(getWidth(), getHeight());
-
+        this.hp = 10;
     }
 
     @Override
@@ -52,6 +50,11 @@ public class MainShip extends Ship {
     @Override
     public void update(float delta) {
         super.update(delta);
+        reloadTimer += delta;
+        if (reloadTimer >= reloadInterval) {
+            reloadTimer = 0f;
+            shoot();
+        }
         if (getRight() > worldBounds.getRight()) {
             setRight(worldBounds.getRight());
             stop();
@@ -59,7 +62,6 @@ public class MainShip extends Ship {
             setLeft(worldBounds.getLeft());
             stop();
         }
-        mainShipRectangle.setPosition(getLeft(), getBottom());
 
     }
 
@@ -144,6 +146,15 @@ public class MainShip extends Ship {
         return false;
     }
 
+    public boolean isBulletCollision(Rect bullet) {
+        return !(
+                bullet.getRight() < getLeft()
+                        || bullet.getLeft() > getRight()
+                        || bullet.getBottom() > pos.y
+                        || bullet.getTop() < getBottom()
+        );
+    }
+
     private void moveRight() {
         v.set(v0);
     }
@@ -156,10 +167,6 @@ public class MainShip extends Ship {
         v.setZero();
     }
 
-    private void shoot() {
-        bulletSound.play();
-        Bullet bullet = bulletPool.obtain();
-        bullet.set(this, bulletRegion, pos, bulletV, bulletHeight, worldBounds, damage);
-    }
+
 
 }
