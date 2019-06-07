@@ -11,6 +11,7 @@ import com.mygdx.game.Base.BaseScreen;
 import com.mygdx.game.math.Rect;
 import com.mygdx.game.sprite.Background;
 import com.mygdx.game.sprite.ButtonExit;
+import com.mygdx.game.sprite.ButtonNewGame;
 import com.mygdx.game.sprite.ButtonPlay;
 import com.mygdx.game.sprite.Star;
 
@@ -27,6 +28,7 @@ public class ScreenMenu extends BaseScreen {
 
     private ButtonExit buttonExit;
     private ButtonPlay buttonPlay;
+
 
     public ScreenMenu(Game game) {
         this.game = game;
@@ -45,6 +47,7 @@ public class ScreenMenu extends BaseScreen {
         }
         buttonExit = new ButtonExit(atlas);
         buttonPlay = new ButtonPlay(atlas, game);
+
     }
 
     @Override

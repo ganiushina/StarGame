@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Wed May 29 14:44:31 SAMT 2019
+#Thu Jun 06 15:04:37 SAMT 2019
 17.baseType=DIRECTORY
 4.path=textures/mainAtlas.tpack
 22.set=NATIVE_RESOURCE
