@@ -52,7 +52,7 @@ public class EnemyGenerator {
 
     private EnemyPool enemyPool;
 
-    public boolean isFight = false;
+    private int level;
 
 
     public EnemyGenerator(Rect worldBounds, EnemyPool enemyPool, TextureAtlas atlas) {
@@ -67,7 +67,8 @@ public class EnemyGenerator {
         this.bulletRegion = atlas.findRegion("bulletEnemy");
     }
 
-    public void generate(float delta) {
+    public void generate(float delta, int frags) {
+        level = frags / 10 + 1;
         generateTimer += delta;
         if (generateTimer >= generateInterval) {
             generateTimer = 0f;
@@ -113,6 +114,10 @@ public class EnemyGenerator {
             enemy.pos.x = Rnd.nextFloat(worldBounds.getLeft() + enemy.getHalfWidth(), worldBounds.getRight() - enemy.getHalfWidth());
             enemy.setBottom(worldBounds.getTop() - enemy.getHeight());
         }
+    }
+
+    public int getLevel() {
+        return level;
     }
 
 

@@ -71,6 +71,10 @@ public abstract class Ship extends Sprite {
         frame = 1;
         damageAnimateTimer = 0f;
     }
+    public int getHp() {
+        return hp;
+    }
+
 
     protected void shoot() {
         bulletSound.play();
