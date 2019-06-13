@@ -15,6 +15,7 @@ public class Rect {
 
     }
 
+
     public Rect(Rect from) {
         this(from.pos.x, from.pos.y, from.getHalfWidth(), from.getHalfHeight());
     }

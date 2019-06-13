@@ -43,7 +43,6 @@ public class Bullet extends Sprite {
     @Override
     public void update(float delta) {
         this.pos.mulAdd(v, delta);
-      //  sound.setLooping(id, true);
         if (isOutside(worldBounds)) {
             destroy();
         }
